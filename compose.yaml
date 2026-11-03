@@ -1,0 +1,22 @@
+services:
+  a:
+    build: ./a
+    ports:
+      - "8080:8080"
+    environment:
+      SERVICE_B_URL: "http://b:8080"
+    depends_on:
+      - b
+  b:
+    build: ./b
+    environment:
+      SERVICE_C_URL: "http://c:3000"
+    depends_on:
+      - c
+  c:
+    build: ./c
+    volumes:
+      - counter-data:/data
+
+volumes:
+  counter-data:
